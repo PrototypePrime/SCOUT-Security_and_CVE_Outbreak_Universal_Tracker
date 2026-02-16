@@ -391,73 +391,20 @@ Input: https://example.com/security-advisory-2024-01
 
 **Method 1: Docker Hub (Recommended — No Git Required)**
 
-Just 3 steps — copy, paste, run:
+Run these 2 commands and you're done:
 
 ```bash
-# 1. Create a folder and enter it
+# 1. Download the Docker Compose file
 mkdir scout && cd scout
-```
+curl -o docker-compose.yml https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/docker-compose.hub.yml
 
-**2.** Create a file called `docker-compose.yml` and paste this:
-
-```yaml
-version: '3.8'
-
-services:
-  scout-db:
-    image: postgres:15-alpine
-    container_name: scout-db-docker
-    environment:
-      POSTGRES_USER: scout
-      POSTGRES_PASSWORD: scout_password
-      POSTGRES_DB: scout
-    volumes:
-      - scout_data:/var/lib/postgresql/data
-    networks:
-      - scout-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U scout"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  scout-app:
-    image: prototype628426/scout-app:latest
-    container_name: scout-app
-    depends_on:
-      scout-db:
-        condition: service_healthy
-    environment:
-      DOCKER_ENV: "true"
-      POSTGRES_HOST: scout-db
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: scout
-      POSTGRES_PASSWORD: scout_password
-      POSTGRES_DB: scout
-      OLLAMA_BASE_URL: http://host.docker.internal:11434
-    ports:
-      - "8000:8000"
-    networks:
-      - scout-network
-    restart: unless-stopped
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-networks:
-  scout-network:
-    driver: bridge
-
-volumes:
-  scout_data:
-```
-
-```bash
-# 3. Launch SCOUT (Docker pulls the image automatically)
+# 2. Launch SCOUT (pulls images automatically)
 docker-compose up -d
 ```
 
 **That's it!** Wait 30 seconds, then open 🌐 **http://localhost:8000**
+
+> 💡 **Windows users without curl?** Download [docker-compose.hub.yml](https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/docker-compose.hub.yml), rename it to `docker-compose.yml`, and run `docker-compose up -d`
 
 ---
 

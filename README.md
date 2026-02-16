@@ -489,36 +489,67 @@ All settings in `.env`:
 
 ## 🏗️ Architecture
 
+### How SCOUT Works
+
+```mermaid
+flowchart LR
+    A["🌐 CVE Sources\n(NVD, CISA, ExploitDB,\nGitHub, RSS, OSV)"] -->|"Real-time\nIngestion"| B["⚡ Auto-Ingest\n& Deduplicate"]
+    B -->|"New CVE"| C["🧠 AI Analysis\n(Quick / Smart / Deep)"]
+    C -->|"Score 0-100"| D["📊 Risk Scoring\n(Asset-Aware)"]
+    D -->|"High Risk?"| E["🚨 Smart Alerts\n(Email / Push)"]
+    D -->|"On Demand"| F["📄 Reports\n(PDF / Sigma / YARA)"]
+
+    style A fill:#1a1a2e,stroke:#e94560,color:#fff
+    style B fill:#1a1a2e,stroke:#0f3460,color:#fff
+    style C fill:#1a1a2e,stroke:#9b59b6,color:#fff
+    style D fill:#1a1a2e,stroke:#e67e22,color:#fff
+    style E fill:#1a1a2e,stroke:#e74c3c,color:#fff
+    style F fill:#1a1a2e,stroke:#2ecc71,color:#fff
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                    🛡️ SCOUT Platform                          │
-│                                                                │
-│  ┌──────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │  React UI    │  │   FastAPI   │  │    AI Engine        │  │
-│  │   (Vite)     │◄─│   Backend   │◄─│  (Ollama/Cloud)     │  │
-│  │              │  │             │  │                     │  │
-│  │  Dashboard   │  │  REST API   │  │  Risk Scorer        │  │
-│  │  Analysis    │  │  JWT Auth   │  │  OSINT Enrichment   │  │
-│  │  Settings    │  │  Scrapers   │  │  Report Generator   │  │
-│  └──────────────┘  └──────┬──────┘  └─────────────────────┘  │
-│                           │                                   │
-│              ┌────────────┴────────────┐                      │
-│              │   Data Scrapers         │                      │
-│              ├─────────────────────────┤                      │
-│              │ NVD │ CISA │ ExploitDB  │                      │
-│              │ GitHub │ RSS │ OSV      │                      │
-│              └────────────┬────────────┘                      │
-└───────────────────────────┼───────────────────────────────────┘
-                            │
-                   ┌────────┴─────────┐
-                   │   PostgreSQL 15  │
-                   │   (scout-db)     │
-                   │                  │
-                   │  • Vulnerabilities│
-                   │  • Assets         │
-                   │  • Risk Scores    │
-                   │  • User Settings  │
-                   └──────────────────┘
+
+### System Architecture
+
+```mermaid
+graph TB
+    subgraph SCOUT["🛡️ SCOUT Platform"]
+        direction TB
+        subgraph Frontend["Frontend"]
+            UI["React UI (Vite)\n━━━━━━━━━━━━━\n📊 Dashboard\n🔍 Analysis\n⚙️ Settings"]
+        end
+        subgraph Backend["Backend"]
+            API["FastAPI\n━━━━━━━━━━━━━\n🔌 REST API\n🔐 JWT Auth\n📡 WebSockets"]
+        end
+        subgraph AI["AI Engine"]
+            AIE["Ollama / Cloud\n━━━━━━━━━━━━━\n🎯 Risk Scorer\n🔍 OSINT Enrichment\n📝 Report Generator"]
+        end
+        subgraph Scrapers["Data Scrapers"]
+            S1["NVD"]
+            S2["CISA KEV"]
+            S3["ExploitDB"]
+            S4["GitHub"]
+            S5["RSS Feeds"]
+            S6["OSV"]
+        end
+    end
+
+    subgraph DB["💾 PostgreSQL 15"]
+        D1["Vulnerabilities"]
+        D2["Assets"]
+        D3["Risk Scores"]
+        D4["User Settings"]
+    end
+
+    UI <-->|"HTTP/WS"| API
+    API <-->|"Inference"| AIE
+    API <-->|"CRUD"| DB
+    S1 & S2 & S3 & S4 & S5 & S6 -->|"Ingest"| API
+
+    style SCOUT fill:#0d1117,stroke:#30363d,color:#fff
+    style Frontend fill:#1a1a2e,stroke:#61DAFB,color:#fff
+    style Backend fill:#1a1a2e,stroke:#009688,color:#fff
+    style AI fill:#1a1a2e,stroke:#9b59b6,color:#fff
+    style Scrapers fill:#1a1a2e,stroke:#e67e22,color:#fff
+    style DB fill:#1a1a2e,stroke:#336791,color:#fff
 ```
 
 ---

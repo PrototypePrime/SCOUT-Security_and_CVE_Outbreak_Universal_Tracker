@@ -164,25 +164,6 @@ CVE Published → Auto-Ingested → AI Analyzed → Risk Scored → Alerts Sent 
 
 ---
 
-### Use Case 5: Threat Intelligence Integration
-
-**Scenario**: Security team needs to enrich SIEM alerts with vulnerability context.
-
-**SCOUT API Workflow**:
-```bash
-# SIEM detects unusual Apache traffic
-# Query SCOUT API for Apache vulnerabilities
-
-curl -X GET "http://localhost:8000/api/vulnerabilities?product=apache&exploited=true" \
-  -H "Authorization: Bearer YOUR_TOKEN"
-
-# Returns: JSON array of actively exploited Apache CVEs
-# Feed into SIEM correlation rules
-```
-
-**Result**: SIEM correlates network traffic with known exploits → Faster incident response
-
----
 
 ## ✨ Feature Deep Dive
 

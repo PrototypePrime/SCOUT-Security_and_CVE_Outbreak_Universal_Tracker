@@ -70,18 +70,14 @@ SCOUT supports two AI backends. Configure either (or both) in your `.env` file:
 
 ### Local AI (Ollama) — Recommended for Privacy
 1. Install [Ollama](https://ollama.ai) on your host machine
-2. Pull a model: `ollama pull qwen2.5:7b`
-3. SCOUT auto-connects via `http://host.docker.internal:11434`
-4. You can change the model from **Settings → AI Model** in the dashboard
+2. Pull a model: `ollama pull llama3.1:8b`
+3. SCOUT auto-connects via `http://host.docker.internal:11434` (configured in `docker-compose.yml`)
+4. You can change the model name in **Settings → Connections → Model Name**
 
 ### Cloud AI — Recommended for Quality
-Set your API key in `.env`:
-```env
-SCOUT_CLOUD_API_KEY=your-cloud-api-key
-SCOUT_CLOUD_API_URL=https://api.example.com/v1/chat/completions
-```
+> ⚠️ **Note**: Cloud AI support requires additional backend configuration. Contact support for setup.
 
-> You can switch between Local and Cloud AI at any time from the Settings panel.
+For development/testing, use local Ollama models.
 
 ---
 
@@ -95,8 +91,6 @@ All configuration is done through the `.env` file:
 | `POSTGRES_USER` | Database username | `scout` |
 | `SECRET_KEY` | JWT authentication key | *(change this!)* |
 | `OLLAMA_BASE_URL` | Local Ollama endpoint | `http://host.docker.internal:11434` |
-| `SCOUT_CLOUD_API_KEY` | Cloud AI API key | *(optional)* |
-| `SCOUT_CLOUD_API_URL` | Cloud AI endpoint | *(optional)* |
 | `SCOUT_EMAIL` | Alert notification email | *(optional)* |
 | `SCOUT_EMAIL_PASSWORD` | Email app password | *(optional)* |
 

@@ -391,19 +391,14 @@ Input: https://example.com/security-advisory-2024-01
 
 **Method 1: Docker Hub (Recommended — No Git Required)**
 
-Pull the pre-built image directly from [Docker Hub](https://hub.docker.com/r/prototype628426/scout-app):
+Just 3 steps — copy, paste, run:
 
 ```bash
-# 1. Pull the SCOUT image
-docker pull prototype628426/scout-app:latest
-```
-
-```bash
-# 2. Create a project folder
+# 1. Create a folder and enter it
 mkdir scout && cd scout
 ```
 
-Create a `docker-compose.yml` file with the following content:
+**2.** Create a file called `docker-compose.yml` and paste this:
 
 ```yaml
 version: '3.8'
@@ -440,7 +435,6 @@ services:
       POSTGRES_USER: scout
       POSTGRES_PASSWORD: scout_password
       POSTGRES_DB: scout
-      SECRET_KEY: change_this_to_a_long_random_string
       OLLAMA_BASE_URL: http://host.docker.internal:11434
     ports:
       - "8000:8000"
@@ -458,51 +452,30 @@ volumes:
   scout_data:
 ```
 
-> ⚠️ **IMPORTANT**: Change `SECRET_KEY` to a random 64-character string before launching! (See `.env.example` for details)
-
 ```bash
-# 3. Launch SCOUT
+# 3. Launch SCOUT (Docker pulls the image automatically)
 docker-compose up -d
-
-# 4. Wait 30 seconds, then open dashboard
 ```
+
+**That's it!** Wait 30 seconds, then open 🌐 **http://localhost:8000**
+
+---
 
 **Method 2: Build from Source**
 
-Clone the repository and build locally:
-
 ```bash
-# 1. Clone repository
+# 1. Clone and enter directory
 git clone https://github.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker.git
 cd SCOUT-Security_and_CVE_Outbreak_Universal_Tracker
 
-# 2. Create environment file
+# 2. Copy environment file
 cp .env.example .env
 
-# 3. Edit .env - Set ONE required variable
-nano .env  # or notepad .env on Windows
-```
-
-**In `.env`, set**:
-```env
-# Required: Password for your SCOUT account (keep this secret!)
-SECRET_KEY=your_long_random_secret_key_here
-```
-
-> 💡 **How to generate a SECRET_KEY**:
-> - **Linux/Mac**: Run `openssl rand -hex 32` in terminal
-> - **Windows PowerShell**: Run `[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))`
-> - **Any Platform**: Visit https://randomkeygen.com/ and copy a "CodeIgniter Encryption Key"
-> - **Manual**: Type any random 64-character string (letters, numbers, symbols)
-
-```bash
-# 4. Launch SCOUT
+# 3. Launch SCOUT (builds from source)
 docker-compose up -d
-
-# 5. Wait 30 seconds, then access dashboard
 ```
 
----
+**That's it!** Wait 30 seconds, then open 🌐 **http://localhost:8000**
 
 🌐 **Dashboard**: http://localhost:8000
 

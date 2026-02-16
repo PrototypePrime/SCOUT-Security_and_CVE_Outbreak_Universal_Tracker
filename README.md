@@ -410,10 +410,15 @@ nano .env  # or notepad .env on Windows
 
 **In `.env`, set**:
 ```env
-SECRET_KEY=your_long_random_secret_key_for_jwt_signing
+# Required: Password for your SCOUT account (keep this secret!)
+SECRET_KEY=your_long_random_secret_key_here
 ```
 
-> 💡 **Generate**: `openssl rand -hex 32` (Linux/Mac) or use any 64-character random string
+> 💡 **How to generate a SECRET_KEY**:
+> - **Linux/Mac**: Run `openssl rand -hex 32` in terminal
+> - **Windows PowerShell**: Run `[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))`
+> - **Any Platform**: Visit https://randomkeygen.com/ and copy a "CodeIgniter Encryption Key"
+> - **Manual**: Type any random 64-character string (letters, numbers, symbols)
 
 ```bash
 # 5. Launch SCOUT
@@ -440,10 +445,15 @@ nano .env  # or notepad .env on Windows
 
 **In `.env`, set**:
 ```env
-SECRET_KEY=your_long_random_secret_key_for_jwt_signing
+# Required: Password for your SCOUT account (keep this secret!)
+SECRET_KEY=your_long_random_secret_key_here
 ```
 
-> 💡 **Generate**: `openssl rand -hex 32` (Linux/Mac) or use any 64-character random string
+> 💡 **How to generate a SECRET_KEY**:
+> - **Linux/Mac**: Run `openssl rand -hex 32` in terminal
+> - **Windows PowerShell**: Run `[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))`
+> - **Any Platform**: Visit https://randomkeygen.com/ and copy a "CodeIgniter Encryption Key"
+> - **Manual**: Type any random 64-character string (letters, numbers, symbols)
 
 ```bash
 # 4. Launch SCOUT

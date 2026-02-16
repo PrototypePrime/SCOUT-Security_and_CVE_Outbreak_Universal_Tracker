@@ -505,7 +505,7 @@ All settings in `.env`:
 
 | Variable | Description | Required | Default |
 |----------|-------------|----------|---------|
-| `SECRET_KEY` | JWT signing key (64+ chars) | ✅ **YES** | *(must set)* |
+| `SECRET_KEY` | Security password for SCOUT (any random 64-character string) | ✅ **YES** | *(must set)* |
 | `OLLAMA_BASE_URL` | Local AI endpoint | No | `http://host.docker.internal:11434` |
 | `SCOUT_EMAIL` | Alert sender email | No | *(optional)* |
 | `SCOUT_EMAIL_PASSWORD` | Email app password | No | *(optional)* |

@@ -6,7 +6,7 @@
 
 **Transform vulnerability chaos into actionable intelligence with AI-powered risk analysis**
 
-[![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/scoutsec/scout-app)
+[![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/prototype628426/scout-app)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
@@ -389,6 +389,43 @@ Input: https://example.com/security-advisory-2024-01
 
 ### Installation
 
+**Method 1: Docker Hub (Recommended)**
+
+Pull the pre-built image directly from Docker Hub:
+
+```bash
+# 1. Create project directory
+mkdir scout && cd scout
+
+# 2. Download docker-compose.yml
+curl -O https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/docker-compose.yml
+
+# 3. Download .env.example
+curl -O https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/.env.example
+cp .env.example .env
+
+# 4. Edit .env - Set ONE required variable
+nano .env  # or notepad .env on Windows
+```
+
+**In `.env`, set**:
+```env
+SECRET_KEY=your_long_random_secret_key_for_jwt_signing
+```
+
+> 💡 **Generate**: `openssl rand -hex 32` (Linux/Mac) or use any 64-character random string
+
+```bash
+# 5. Launch SCOUT
+docker-compose up -d
+
+# 6. Wait 30 seconds, then access dashboard
+```
+
+**Method 2: Build from Source**
+
+Clone the repository and build locally:
+
 ```bash
 # 1. Clone repository
 git clone https://github.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker.git
@@ -414,6 +451,8 @@ docker-compose up -d
 
 # 5. Wait 30 seconds, then access dashboard
 ```
+
+---
 
 🌐 **Dashboard**: http://localhost:8000
 

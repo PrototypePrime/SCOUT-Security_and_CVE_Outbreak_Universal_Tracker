@@ -389,42 +389,82 @@ Input: https://example.com/security-advisory-2024-01
 
 ### Installation
 
-**Method 1: Docker Hub (Recommended)**
+**Method 1: Docker Hub (Recommended — No Git Required)**
 
-Pull the pre-built image directly from Docker Hub:
+Pull the pre-built image directly from [Docker Hub](https://hub.docker.com/r/prototype628426/scout-app):
 
 ```bash
-# 1. Create project directory
+# 1. Pull the SCOUT image
+docker pull prototype628426/scout-app:latest
+```
+
+```bash
+# 2. Create a project folder
 mkdir scout && cd scout
-
-# 2. Download docker-compose.yml
-curl -O https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/docker-compose.yml
-
-# 3. Download .env.example
-curl -O https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/.env.example
-cp .env.example .env
-
-# 4. Edit .env - Set ONE required variable
-nano .env  # or notepad .env on Windows
 ```
 
-**In `.env`, set**:
-```env
-# Required: Password for your SCOUT account (keep this secret!)
-SECRET_KEY=your_long_random_secret_key_here
+Create a `docker-compose.yml` file with the following content:
+
+```yaml
+version: '3.8'
+
+services:
+  scout-db:
+    image: postgres:15-alpine
+    container_name: scout-db-docker
+    environment:
+      POSTGRES_USER: scout
+      POSTGRES_PASSWORD: scout_password
+      POSTGRES_DB: scout
+    volumes:
+      - scout_data:/var/lib/postgresql/data
+    networks:
+      - scout-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scout"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  scout-app:
+    image: prototype628426/scout-app:latest
+    container_name: scout-app
+    depends_on:
+      scout-db:
+        condition: service_healthy
+    environment:
+      DOCKER_ENV: "true"
+      POSTGRES_HOST: scout-db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: scout
+      POSTGRES_PASSWORD: scout_password
+      POSTGRES_DB: scout
+      SECRET_KEY: change_this_to_a_long_random_string
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+    ports:
+      - "8000:8000"
+    networks:
+      - scout-network
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  scout-network:
+    driver: bridge
+
+volumes:
+  scout_data:
 ```
 
-> 💡 **How to generate a SECRET_KEY**:
-> - **Linux/Mac**: Run `openssl rand -hex 32` in terminal
-> - **Windows PowerShell**: Run `[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))`
-> - **Any Platform**: Visit https://randomkeygen.com/ and copy a "CodeIgniter Encryption Key"
-> - **Manual**: Type any random 64-character string (letters, numbers, symbols)
+> ⚠️ **IMPORTANT**: Change `SECRET_KEY` to a random 64-character string before launching! (See `.env.example` for details)
 
 ```bash
-# 5. Launch SCOUT
+# 3. Launch SCOUT
 docker-compose up -d
 
-# 6. Wait 30 seconds, then access dashboard
+# 4. Wait 30 seconds, then open dashboard
 ```
 
 **Method 2: Build from Source**

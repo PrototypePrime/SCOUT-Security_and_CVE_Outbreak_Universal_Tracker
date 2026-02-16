@@ -1,0 +1,61 @@
+version: '3.8'
+
+# ==============================================
+# SCOUT - Docker Hub Installation
+# ==============================================
+# This file pulls the pre-built image from Docker Hub.
+# No source code or Git clone required.
+#
+# Usage:
+#   curl -o docker-compose.yml https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/docker-compose.hub.yml
+#   docker-compose up -d
+#   Open http://localhost:8000
+# ==============================================
+
+services:
+  scout-db:
+    image: postgres:15-alpine
+    container_name: scout-db-docker
+    environment:
+      POSTGRES_USER: scout
+      POSTGRES_PASSWORD: scout_password
+      POSTGRES_DB: scout
+    volumes:
+      - scout_data:/var/lib/postgresql/data
+    networks:
+      - scout-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U scout" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  scout-app:
+    image: prototype628426/scout-app:latest
+    container_name: scout-app
+    depends_on:
+      scout-db:
+        condition: service_healthy
+    environment:
+      DOCKER_ENV: "true"
+      POSTGRES_HOST: scout-db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: scout
+      POSTGRES_PASSWORD: scout_password
+      POSTGRES_DB: scout
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+    ports:
+      - "8000:8000"
+    networks:
+      - scout-network
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  scout-network:
+    driver: bridge
+
+volumes:
+  scout_data:

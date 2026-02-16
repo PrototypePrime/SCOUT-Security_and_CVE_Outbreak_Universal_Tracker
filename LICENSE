@@ -1,0 +1,31 @@
+SCOUT - Security CVE & Outbreak Universal Tracker
+Copyright (c) 2026
+
+LICENSE AGREEMENT
+
+1. NON-COMMERCIAL USE
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to use
+   the Software for personal, educational, or research purposes, subject to
+   the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+2. COMMERCIAL USE
+   Use of the Software for commercial purposes is STRICTLY PROHIBITED without a
+   valid commercial license. Commercial purposes include, but are not limited to:
+   - Use within a for-profit organization for internal security operations.
+   - Use to provide managed security services (MSSP) to third parties.
+   - Bundling or redistributing the Software with commercial products.
+
+   To obtain a commercial license, please contact the maintainers.
+
+3. DISCLAIMER
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.

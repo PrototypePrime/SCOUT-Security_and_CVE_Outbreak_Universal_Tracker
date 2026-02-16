@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  scout-db:
+    image: postgres:15-alpine
+    container_name: scout-db-docker
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-scout}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-scout_password}
+      POSTGRES_DB: ${POSTGRES_DB:-scout}
+    volumes:
+      - scout_data:/var/lib/postgresql/data
+    networks:
+      - scout-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-scout}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  scout-app:
+    image: prototype628426/scout-app:latest
+    container_name: scout-app
+    depends_on:
+      scout-db:
+        condition: service_healthy
+    environment:
+      # Database Connection
+      DOCKER_ENV: "true"
+      POSTGRES_HOST: scout-db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-scout}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-scout_password}
+      POSTGRES_DB: ${POSTGRES_DB:-scout}
+
+      # App Settings
+      SECRET_KEY: ${SECRET_KEY:-change_this_in_production_please}
+
+      # AI Settings (Optional - passed through from host)
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      SCOUT_CLOUD_API_KEY: ${SCOUT_CLOUD_API_KEY}
+    ports:
+      - "8000:8000"
+    networks:
+      - scout-network
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  scout-network:
+    driver: bridge
+
+volumes:
+  scout_data:

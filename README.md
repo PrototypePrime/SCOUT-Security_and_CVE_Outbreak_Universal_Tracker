@@ -402,6 +402,10 @@ curl -o docker-compose.yml https://raw.githubusercontent.com/PrototypePrime/SCOU
 docker-compose up -d
 ```
 
+```
+
+> **Tip:** You can also pull the image manually: `docker pull prototype628426/scout-app:latest`
+
 **That's it!** Wait 30 seconds, then open 🌐 **http://localhost:8001**
 
 > 💡 **Windows users without curl?** Download [docker-compose.hub.yml](https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/docker-compose.hub.yml), rename it to `docker-compose.yml`, and run `docker-compose up -d`

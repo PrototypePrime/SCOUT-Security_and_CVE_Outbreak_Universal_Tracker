@@ -6,7 +6,7 @@
 
 **Transform vulnerability chaos into actionable intelligence with AI-powered risk analysis**
 
-[![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/prototype628426/scout-app)
+[![Docker Pulls](https://img.shields.io/docker/pulls/prototype628426/scout-app.svg)](https://hub.docker.com/repository/docker/prototype628426/scout-app)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)

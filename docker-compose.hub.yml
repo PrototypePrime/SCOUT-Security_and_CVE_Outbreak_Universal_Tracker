@@ -44,6 +44,7 @@ services:
       POSTGRES_USER: scout
       POSTGRES_PASSWORD: scout_password
       POSTGRES_DB: scout
+      SECRET_KEY: change_this_in_production_please
       OLLAMA_BASE_URL: http://host.docker.internal:11434
     ports:
       - "8001:8001"

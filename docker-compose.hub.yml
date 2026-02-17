@@ -9,7 +9,7 @@ version: '3.8'
 # Usage:
 #   curl -o docker-compose.yml https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/docker-compose.hub.yml
 #   docker-compose up -d
-#   Open http://localhost:8000
+#   Open http://localhost:8001
 # ==============================================
 
 services:
@@ -46,7 +46,7 @@ services:
       POSTGRES_DB: scout
       OLLAMA_BASE_URL: http://host.docker.internal:11434
     ports:
-      - "8000:8000"
+      - "8001:8001"
     networks:
       - scout-network
     restart: unless-stopped

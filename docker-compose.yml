@@ -41,7 +41,7 @@ services:
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
       SCOUT_CLOUD_API_KEY: ${SCOUT_CLOUD_API_KEY}
     ports:
-      - "8000:8000"
+      - "8001:8001"
     networks:
       - scout-network
     restart: unless-stopped

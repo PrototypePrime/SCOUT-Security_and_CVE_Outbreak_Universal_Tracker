@@ -402,7 +402,7 @@ curl -o docker-compose.yml https://raw.githubusercontent.com/PrototypePrime/SCOU
 docker-compose up -d
 ```
 
-**That's it!** Wait 30 seconds, then open 🌐 **http://localhost:8000**
+**That's it!** Wait 30 seconds, then open 🌐 **http://localhost:8001**
 
 > 💡 **Windows users without curl?** Download [docker-compose.hub.yml](https://raw.githubusercontent.com/PrototypePrime/SCOUT-Security_and_CVE_Outbreak_Universal_Tracker/main/docker-compose.hub.yml), rename it to `docker-compose.yml`, and run `docker-compose up -d`
 
@@ -422,9 +422,9 @@ cp .env.example .env
 docker-compose up -d
 ```
 
-**That's it!** Wait 30 seconds, then open 🌐 **http://localhost:8000**
+**That's it!** Wait 30 seconds, then open 🌐 **http://localhost:8001**
 
-🌐 **Dashboard**: http://localhost:8000
+🌐 **Dashboard**: http://localhost:8001
 
 **Login**: `admin` / `admin123`
 
